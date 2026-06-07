@@ -1,0 +1,3 @@
+test:
+  _target_: src.datasets.CustomDirDataset
+  data_dir: ${oc.env:CUSTOM_DATA_DIR,data/custom}
