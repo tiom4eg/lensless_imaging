@@ -1,0 +1,5 @@
+_target_: src.model.LenslessReconstructor
+admm_iters: 20
+admm_learnable: true
+use_pre: false
+use_post: false

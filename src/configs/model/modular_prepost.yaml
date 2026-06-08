@@ -1,0 +1,7 @@
+_target_: src.model.LenslessReconstructor
+admm_iters: 5
+admm_learnable: true
+use_pre: true
+use_post: true
+proc_base: 32
+proc_blocks: 2

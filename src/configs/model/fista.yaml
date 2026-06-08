@@ -1,0 +1,3 @@
+_target_: src.model.FISTA
+n_iters: 100
+tau: 1.0e-4

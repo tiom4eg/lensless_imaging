@@ -1,0 +1,4 @@
+_target_: src.model.ADMMPlusSR
+admm_iters: 100
+sigma: 0.03
+pretrained: download
