@@ -1,0 +1,19 @@
+device: auto
+train:
+  - _target_: src.metrics.PSNRMetric
+    name: PSNR
+    device: ${metrics.device}
+inference:
+  - _target_: src.metrics.PSNRMetric
+    name: PSNR
+    device: ${metrics.device}
+  - _target_: src.metrics.SSIMMetric
+    name: SSIM
+    device: ${metrics.device}
+  - _target_: src.metrics.MSEMetric
+    name: MSE
+    device: ${metrics.device}
+  - _target_: src.metrics.LPIPSMetric
+    name: LPIPS
+    net: vgg
+    device: ${metrics.device}
