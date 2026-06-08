@@ -1,0 +1,51 @@
+defaults:
+  - model: modular_prepost
+  - writer: cometml
+  - metrics: lensless
+  - datasets: digicam
+  - dataloader: lensless
+  - transforms: none
+  - _self_
+
+optimizer:
+  _target_: torch.optim.AdamW
+  lr: 1.0e-4
+  weight_decay: 0.0
+lr_scheduler:
+  # Cosine decay, T_max is filled in automatically from n_epochs * epoch_len when null
+  _target_: torch.optim.lr_scheduler.CosineAnnealingLR
+  T_max: null
+  eta_min: 1.0e-6
+
+loss_function:
+  _target_: src.loss.LenslessLoss
+  mse_weight: 1.0
+  lpips_weight: 1.0
+  lpips_net: vgg
+
+hf_uploader:
+  _target_: src.logger.HFCheckpointUploader
+  username: MHDCSM
+  run_name: ${writer.run_name}
+  private: True
+  repo_prefix: "lensless-"
+
+trainer:
+  _target_: src.trainer.LenslessTrainer
+  log_step: 50
+  n_epochs: 60
+  epoch_len: 200
+  device_tensors: ["lensless", "psf", "lensed"]
+  resume_from: null
+  from_pretrained: null
+  device: auto
+  override: True
+  monitor: "max val_PSNR"
+  save_period: 5
+  early_stop: ${trainer.n_epochs}
+  save_dir: "saved"
+  seed: 1
+  log_image_n: 4
+  max_grad_norm: 1.0
+  mixed_precision: "no"
+  grad_accum: 1
