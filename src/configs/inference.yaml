@@ -1,0 +1,16 @@
+defaults:
+  - model: modular_prepost
+  - metrics: lensless
+  - datasets: digicam_eval
+  - dataloader: lensless_eval
+  - transforms: none
+  - _self_
+
+inferencer:
+  _target_: src.trainer.LenslessInferencer
+  device_tensors: ["lensless", "psf", "lensed"]
+  device: auto
+  save_path: "inference_out"
+  seed: 1
+  from_pretrained: "saved/modular_prepost/model_best.pth"
+  save_images: True
